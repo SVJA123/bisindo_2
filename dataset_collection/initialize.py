@@ -1,6 +1,6 @@
 import os
 
-# This was a helper function to initialize the directories
+# this was a helper function to initialize the directories
 
 def initialize_directories(DATA_DIR, number_of_classes):
     if not os.path.exists(DATA_DIR):

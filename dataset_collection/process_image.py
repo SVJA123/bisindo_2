@@ -3,7 +3,7 @@ import mediapipe as mp
 import numpy as np
 import os
 
-#  This is a part of the proceesiong of the images to extract the landmarks
+#  this is a part of the proceesiong of the images to extract the landmarks
 
 def process_frames_and_extract_landmarks(DATA_DIR, number_of_classes):
     mp_hands = mp.solutions.hands
@@ -13,7 +13,7 @@ def process_frames_and_extract_landmarks(DATA_DIR, number_of_classes):
     labels = []
 
     for i in range(number_of_classes):
-        label = chr(65 + i)  # 'A' -> 0, 'B' -> 1, etc.
+        label = chr(65 + i)  
         class_dir = os.path.join(DATA_DIR, label)
         if not os.path.isdir(class_dir):
             continue  
@@ -58,7 +58,6 @@ def process_frames_and_extract_landmarks(DATA_DIR, number_of_classes):
     hands.close()
     return data, labels
 
-# Example usage
 if __name__ == "__main__":
     DATA_DIR = "./frames"  
     number_of_classes = 26  

@@ -2,5 +2,6 @@ letters
 frames
 data
 venv/
+data_add
 
 .DS_Store

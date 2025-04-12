@@ -23,19 +23,20 @@ def process_npy_files(input_dir, output_dir):
                 npy_path = os.path.join(label_dir, npy_file)
                 print(f"Processing: {npy_path}")
 
-                # Load the .npy file
+                # load the .npy file
                 sequence = np.load(npy_path, allow_pickle=True)  
                 print(f"Loaded sequence of shape: {sequence.shape}")
 
                 for i, frame in enumerate(sequence):
+                    if frame.dtype != np.uint8:
+                        frame = frame.astype(np.uint8)
                     frame_filename = f"{npy_file[:-4]}_frame_{i+1:03d}.jpg"
                     frame_path = os.path.join(label_output_dir, frame_filename)
                     cv2.imwrite(frame_path, frame)
                     print(f"Saved frame: {frame_path}")
 
 
-# Example usage
 if __name__ == "__main__":
     input_directory = "data"  
-    output_directory = "frames"  
+    output_directory = "data"  
     process_npy_files(input_directory, output_directory)

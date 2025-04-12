@@ -2,9 +2,9 @@ import cv2
 import os
 import numpy as np
 import string
+import time
 
 def capture_single_letter_sequences(DATA_DIR, sequence_length, dataset_size):
-
     chosen_letter = input("Which letter do you want to capture? [A-Z]: ").upper()
 
     if chosen_letter not in string.ascii_uppercase:
@@ -26,7 +26,6 @@ def capture_single_letter_sequences(DATA_DIR, sequence_length, dataset_size):
         print("Position your hands, then press 'S' to start capturing the sequence.")
         print("Press 'Q' at any time to quit.")
         
-        # Wait for user input to start capturing
         capturing = False
         while not capturing:
             ret, frame = cap.read()
@@ -48,6 +47,8 @@ def capture_single_letter_sequences(DATA_DIR, sequence_length, dataset_size):
             key = cv2.waitKey(1) & 0xFF
             if key == ord('s'):
                 capturing = True
+                print("Starting capture in 2 seconds...")
+                time.sleep(2)  # Add a 2-second delay before starting capture
                 print(f"Capturing {sequence_length} frames...")
             elif key == ord('q'):
                 print("Exiting capture early.")
@@ -55,9 +56,7 @@ def capture_single_letter_sequences(DATA_DIR, sequence_length, dataset_size):
                 cv2.destroyAllWindows()
                 return
 
-        # Now capture the actual sequence of frames
-        sequence_frames = []
-        for _ in range(sequence_length):
+        for frame_num in range(sequence_length):
             ret, frame = cap.read()
             if not ret:
                 print("Error: Failed to capture frame.")
@@ -69,13 +68,10 @@ def capture_single_letter_sequences(DATA_DIR, sequence_length, dataset_size):
                 cv2.destroyAllWindows()
                 return
             
-            sequence_frames.append(frame)
-
-        # Save the sequence as a single .npy file
-        sequence_array = np.array(sequence_frames, dtype=object)  # dtype=object to store frames of varying shapes
-        save_path = os.path.join(class_dir, f'sequence_{seq_num}.npy')
-        np.save(save_path, sequence_array)
-        print(f"Sequence {seq_num} saved for class '{chosen_letter}'.")
+            frame_filename = f"{chosen_letter}_seq{seq_num}_frame{frame_num}.jpg"
+            frame_path = os.path.join(class_dir, frame_filename)
+            cv2.imwrite(frame_path, frame)
+            print(f"Saved frame: {frame_path}")
 
     cap.release()
     cv2.destroyAllWindows()
