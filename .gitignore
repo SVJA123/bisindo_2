@@ -4,4 +4,6 @@ data
 venv/
 data_add
 
+*.zip
+
 .DS_Store
