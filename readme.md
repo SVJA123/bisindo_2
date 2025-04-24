@@ -26,3 +26,27 @@ The dataset required for evaluation called data can be downloaded from the follo
 
 3. **Verify the Structure**:
    - Ensure the dataset structure matches the one specified above.
+
+## Components
+
+The repository structure is organized as follows:
+
+- **`data`**: Contains images used for training the model.
+- **`data_add`**: Contains images used for validating the model.
+- **`dataset_collection`**: Provides details on the data collection process.
+- **`model`**: Includes code to train a model using only hand landmarks as input.
+- **`model_angles`**: Extends the model with calculated angles as additional input features alongside hand landmarks.
+- **`model_hybrid`**: Contains the primary hybrid model combining both angles and hand landmarks, used throughout this project.
+- **`validation`**: Contains scripts to evaluate model performance, including metrics such as accuracy, precision, recall, F1-score, and confusion matrices.
+- **`verification`**: Includes scripts to run real-time model tests locally using your device’s webcam.
+- **`conversion.py`**: Script to convert the trained Keras model into TensorFlow Lite (TFLite) format for deployment within the mobile application.
+
+## Setup
+
+```bash
+python -m venv venv
+source venv/bin/activate  # For Unix/MacOS
+.\venv\Scripts\activate   # For Windows
+
+pip install -r requirements.txt
+```
